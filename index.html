@@ -51,6 +51,16 @@ span{
   margin-top: 15px;
   border-radius: 5px;
 }
+
+.commonbutton input:hover,
+.commonbutton input:hover,
+#plus:hover,
+#period:hover,
+#zero:hover{
+  background: #bfbebe;
+
+
+}
 .conflict input[type="submit"]{
   padding: 8px;
   background: #f2f2f2;
@@ -115,73 +125,73 @@ span{
           <div class="row commonbutton">
             <!-- first row -->
             <div class="col-md-3">
-              <input type="submit" name="" value="&#8730;" class="">
+              <input type="submit" name="" value="&#8730;" class="" onclick="clickRoot()">
             </div>
             <div class="col-md-3">
-              <input type="submit" name="" value="(" class="">
+              <input type="submit" name="" value="(" class="" onclick="clickInput(this)">
             </div>
             <div class="col-md-3">
-              <input type="submit" name="" value=")" class="">
+              <input type="submit" name="" value=")" class="" onclick="clickInput(this)">
             </div>
             <div class="col-md-3">
-              <input type="submit" name="" value="%" class="">
+              <input type="submit" name="" value="%" class=""  onclick="clickPercent(this)">
             </div>
             <!-- second row -->
             <div class="col-md-3">
-              <input type="submit" name="" value="7">
+              <input type="submit" name="" value="7" onclick="clickInput(this)">
             </div>
             <div class="col-md-3">
-              <input type="submit" name="" value="8" class="">
+              <input type="submit" name="" value="8" class="" onclick="clickInput(this)">
             </div>
             <div class="col-md-3">
-              <input type="submit" name="" value="9" class="">
+              <input type="submit" name="" value="9" class="" onclick="clickInput(this)">
             </div>
             <div class="col-md-3">
-              <input type="submit" name="" value="/" class="">
+              <input type="submit" name="" value="/" class=""  onclick="clickOperation(this)">
             </div>
             <!-- third row -->
             <div class="col-md-3">
-              <input type="submit" name="" value="4" class="">
+              <input type="submit" name="" value="4" class="" onclick="clickInput(this)">
             </div>
             <div class="col-md-3">
-              <input type="submit" name="" value="5" class="">
+              <input type="submit" name="" value="5" class="" onclick="clickInput(this)">
             </div>
             <div class="col-md-3">
-              <input type="submit" name="" value="6" class="">
+              <input type="submit" name="" value="6" class="" onclick="clickInput(this)">
             </div>
             <div class="col-md-3">
-              <input type="submit" name="" value="X" class="">
+              <input type="submit" name="" value="x" class=""  onclick="clickOperation(this)">
             </div>
             <!-- four row -->
             <div class="col-md-3">
-              <input type="submit" name="" value="1" class="" onclick="clickNumber(this)">
+              <input type="submit" name="" value="1" class="" onclick="clickInput(this)">
             </div>
             <div class="col-md-3">
-              <input type="submit" name="" value="2" class="" onclick="clickNumber(this)">
+              <input type="submit" name="" value="2" class="" onclick="clickInput(this)">
             </div>
             <div class="col-md-3">
-              <input type="submit" name="" value="3" class="" onclick="clickNumber(this)">
+              <input type="submit" name="" value="3" class="" onclick="clickInput(this)">
             </div>
             <div class="col-md-3">
-              <input type="submit" name="" value="-" class="">
+              <input type="submit" name="" value="-" class=""  onclick="clickOperation(this)">
             </div>
           </div> <!-- end of comonbutton div -->
           <!-- end of button design -->
           <!-- start of conflicting button area -->
           <div class="row conflict">
             <div class="col-md-9">
-              <div class="row">
+              <div class="row commonbutton">
                 <div class="col-md-8">
-                  <input type="submit" name="" value="0" class="">
+                  <input type="submit" name="" value="0" id="zero" class="commonbutton" onclick="clickInput(this)">
                 </div>
                 <div class="col-md-4">
-                  <input type="submit" name="" value="." class="">
+                  <input type="submit" name="" value="." id="period" class="" onclick="clickInput(this)">
                 </div>
                 <div class="col-md-4">
-                  <input type="submit" name="" value="Del" id="del">
+                  <input type="submit" name="" value="Del" id="del" onclick="location.reload()">
                 </div>
                 <div class="col-md-8">
-                  <input type="submit" name="" value="=" id="equal" onclick="submitButton()">
+                  <input type="submit" name="" value="=" id="equal" onclick="clickEval()">
                 </div>
               </div>
             </div> <!-- end  zero, dot, del and equal sign div -->
@@ -200,41 +210,143 @@ span{
     let firstNumber = ''
     let secondNumber = ''
     let operation = ''
-    function clickNumber(element){
-      if(operation == ''){
-        firstNumber += element.value
-      } else {
-        secondNumber += element.value
+    let outputDisplay = document.getElementById('display')
+    let userInputExpression =''
+    let equated = false
+
+    function clickInput(element){
+      if(equated === true){
+        equated =false
+        userInputExpression = element.value
+        outputDisplay.value = element.value
+      }else{
+         userInputExpression += element.value
+         outputDisplay.value += element.value
       }
-      console.log('first', firstNumber)
-      console.log('second', secondNumber)
     }
 
-    // blik another nombor, kita add on the value
-    // tapi bila klik button operation, kita simpan apa operation tu
-    
+    function clickEval(){
+      equated = true
+      outputDisplay.value = eval(userInputExpression)
+      userInputExpression = outputDisplay.value 
+      console.log(userInputExpression)
+    }
+
     function clickOperation(element){
-      operation = element.value
-      console.log('operation', operation)
+
+    if(equated === true){
+      equated = false
+    }
+      if(element.value ==='+'){
+        console.log(element.value)
+        userInputExpression+= '+'
+        outputDisplay.value+= '+'
+      }else if(element.value==='-'){
+        userInputExpression+= '-'
+        outputDisplay.value+= '-'
+
+      }else if(element.value==='x'){
+        userInputExpression+= '*'
+        outputDisplay.value+= 'x'
+
+      }else if(element.value==='/'){
+        userInputExpression+= '/'
+        outputDisplay.value +='/'
+      }else{
+        outputDisplay.value = 'Error'
+      }
+      
+    }
+
+
+    function clickPercent(){
+      outputDisplay.value+='%'
+      userInputExpression+='*0.01'
+
+     
+    }
+
+    function clickRoot(){
+      // outputDisplay.innerHTML += `&#8730;`; 
+      outputDisplay.value += "sqrt("; 
+      userInputExpression+="Math.sqrt("
+      
+
+    }
+
+    /// bula firstnumber xde titik, tabmabh satu titk in string
+    // bila firsnumber ade titik check 
+    function clickDot(){
+        if(operation==''){
+          if (!firstNumber.includes('.')){
+          firstNumber +="."
+          outputDisplay.value = firstNumber
+          }
+        
+        }else{
+          
+          if (!secondNumber.includes('.')){
+            console.log('has no dot')
+            secondNumber+='.'
+            outputDisplay.value += '.'
+          }
+          else{
+            console.log('has  dot')
+            
+          }
+        }
+      
+    }
+
+    //function add bracket. 
+    //kalau xde bracket , tambah '('
+    //kalau ade dan '(', tambah )
+    //klauade, ) then (
+
+
+    function equals(){
+      if(firstNumber !=='' && secondNumber !==''){
+        firstNumber = executeOperation(parseFloat(firstNumber), parseFloat(secondNumber),operation);
+        secondNumber=''
+        operation=''
+        outputDisplay.value = firstNumber
+      }
     }
 
     // next kita another nombor, kita simpan dalam value ke 2
     // blik another nombor, kita add on the value
     // bila tekan button submit, dia kira dan display result
 
-    function submitButton(){
-      const result = parseInt(firstNumber) + parseInt(secondNumber)
-      document.getElementById('display').value = result
+    function executeOperation(firstNumber, secondNumber,operation){
+      num1 = firstNumber
+      num2 = secondNumber
+
+      switch(operation){
+        case '+': 
+          return num1+num2
+        case '-': 
+          return num1-num2
+        case 'x': 
+          return num1*num2
+        case '/': 
+          return num1/num2
+        default:
+          return NaN
+      }
+     
     }
 
-    document.addEventListener('keyup', (e)=>{
-      if(operation == ''){
-        firstNumber += e.key
-      } else {
-        secondNumber += e.key
+
+    function clickBracket(bracket) {
+      if(operation===''){
+        firstNumber+=bracket.value
+      }else{
+        secondNumber+=bracket.value
+
       }
-      console.log('first', firstNumber)
-      console.log('second', secondNumber)
-    })
+    outputDisplay.value += bracket.value;
+  }
+
+  
   </script>
 </html>
