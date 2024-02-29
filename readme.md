@@ -1,10 +1,3 @@
 # JS DOM Manipulation Assignment
 
-Dengan merujuk kepada contoh yang sudah  disediakan, lengkap script supaya kita boleh menjalankan operasi tolak , darab dan bahagi untuk semua nobor
-
-
-
-
-disclaimer
-code html diambil dari sini
-https://codepen.io/shafikshaon/pen/YxQJpW
+Latihan Javascript untuk praktis DOM manipulation. Calculator menggunakan eval(), yang mana merupakan kaedah yang tidak disarankan. see more -> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval#never_use_eval!
